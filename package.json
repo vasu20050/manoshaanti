@@ -1,0 +1,15 @@
+{
+  "name": "mental-wellness-platform",
+  "version": "1.0.0",
+  "description": "AI-powered ManoShaanti platform for Indian youth",
+  "scripts": {
+    "start": "cd backend && npm install && node server.js",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\""
+  },
+  "keywords": ["mental-health", "wellness", "ai"],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": "18.x"
+  }
+}
