@@ -1,6 +1,5 @@
 # ManoShaanti Platform
 This repository contains the ManoShaanti platform — a web-based AI-powered mental health support system for Indian youth.
-
 ## Tech Stack
 
 - **Frontend**: React + Vite + TypeScript (web)
