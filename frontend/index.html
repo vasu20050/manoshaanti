@@ -27,7 +27,7 @@
                 <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
                     <i class="fas fa-moon"></i>
                 </button>
-                <button class="menu-toggle" id="menuToggle">
+                <button class="menu-toggle" id="menuToggle" title="Toggle navigation menu" aria-label="Toggle navigation menu">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -170,7 +170,7 @@
                 <aside class="chat-sidebar">
                     <div class="sidebar-header">
                         <h3>Dashboard</h3>
-                        <button class="btn-icon" onclick="toggleSidebar()">
+                        <button class="btn-icon" onclick="toggleSidebar()" title="Close sidebar" aria-label="Close sidebar">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -213,7 +213,7 @@
                     <!-- Chat Header -->
                     <div class="chat-header">
                         <div class="chat-title">
-                            <button class="btn-icon sidebar-toggle" onclick="toggleSidebar()">
+                            <button class="btn-icon sidebar-toggle" onclick="toggleSidebar()" title="Toggle sidebar" aria-label="Toggle sidebar">
                                 <i class="fas fa-bars"></i>
                             </button>
                             <div>
@@ -265,7 +265,7 @@
                                 placeholder="Share your thoughts..."
                                 onkeypress="handleKeyPress(event)"
                             >
-                            <button class="btn-send" onclick="sendMessage()">
+                            <button class="btn-send" onclick="sendMessage()" title="Send message" aria-label="Send message">
                                 <i class="fas fa-paper-plane"></i>
                             </button>
                         </div>
@@ -315,7 +315,7 @@
                             <label>Stress Level</label>
                             <div class="slider-container">
                                 <span>None</span>
-                                <input type="range" min="0" max="10" value="5" class="stress-slider" id="stressSlider">
+                                <input type="range" min="0" max="10" value="5" class="stress-slider" id="stressSlider" title="Stress level slider" aria-label="Stress level from 0 (None) to 10 (Extreme)">
                                 <span>Extreme</span>
                             </div>
                             <p class="stress-value">Current: <strong id="stressValue">5</strong>/10</p>
@@ -335,25 +335,25 @@
                         <div class="chart-card reveal reveal-delay-1">
                             <h3>Weekly Mood Trend</h3>
                             <div class="mini-chart">
-                                <div class="chart-bar" style="height: 60%;">
+                                <div class="chart-bar chart-bar--60">
                                     <span class="day">Mon</span>
                                 </div>
-                                <div class="chart-bar" style="height: 75%;">
+                                <div class="chart-bar chart-bar--75">
                                     <span class="day">Tue</span>
                                 </div>
-                                <div class="chart-bar" style="height: 50%;">
+                                <div class="chart-bar chart-bar--50">
                                     <span class="day">Wed</span>
                                 </div>
-                                <div class="chart-bar" style="height: 80%;">
+                                <div class="chart-bar chart-bar--80">
                                     <span class="day">Thu</span>
                                 </div>
-                                <div class="chart-bar" style="height: 65%;">
+                                <div class="chart-bar chart-bar--65">
                                     <span class="day">Fri</span>
                                 </div>
-                                <div class="chart-bar" style="height: 90%;">
+                                <div class="chart-bar chart-bar--90">
                                     <span class="day">Sat</span>
                                 </div>
-                                <div class="chart-bar" style="height: 85%;">
+                                <div class="chart-bar chart-bar--85">
                                     <span class="day">Sun</span>
                                 </div>
                             </div>
@@ -433,7 +433,7 @@
                     <div class="modal-content assessment-modal">
                         <div class="modal-header">
                             <h2 id="assessmentTitle">Assessment</h2>
-                            <button class="btn-close" onclick="closeAssessment()">
+                            <button class="btn-close" onclick="closeAssessment()" title="Close assessment" aria-label="Close assessment">
                                 <i class="fas fa-times"></i>
                             </button>
                         </div>
