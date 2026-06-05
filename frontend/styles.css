@@ -1124,6 +1124,18 @@ button {
     filter: brightness(1.1);
 }
 
+/* Chart bar height modifier classes (replaces inline styles) */
+.chart-bar--50  { height: 50%;  }
+.chart-bar--60  { height: 60%;  }
+.chart-bar--65  { height: 65%;  }
+.chart-bar--70  { height: 70%;  }
+.chart-bar--75  { height: 75%;  }
+.chart-bar--80  { height: 80%;  }
+.chart-bar--85  { height: 85%;  }
+.chart-bar--90  { height: 90%;  }
+.chart-bar--95  { height: 95%;  }
+.chart-bar--100 { height: 100%; }
+
 .day {
     position: absolute;
     bottom: -25px;
