@@ -130,6 +130,9 @@ function initializeApp() {
         document.body.classList.add('dark-mode');
     }
 
+    // Initialize animations
+    setupAnimations();
+
     // Set active page
     goToPage('landing');
 
@@ -162,10 +165,70 @@ function goToPage(pageName) {
         page.classList.add('active');
         state.currentPage = pageName;
 
+        // Trigger animations for the active page
+        triggerPageReveals(pageName);
+
         // Close sidebar on mobile when navigating
         if (document.body.offsetWidth < 1024) {
             closeSidebar();
         }
+    }
+}
+
+// ========== Animation System ==========
+function setupAnimations() {
+    // Check if IntersectionObserver is supported
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -30px 0px'
+        });
+
+        // Store observer on state
+        state.revealObserver = revealObserver;
+    }
+}
+
+function triggerPageReveals(pageName) {
+    const page = document.getElementById(pageName);
+    if (!page) return;
+
+    // Reset reveal elements on other pages
+    document.querySelectorAll('.page').forEach(p => {
+        if (p.id !== pageName) {
+            p.querySelectorAll('.reveal').forEach(el => {
+                el.classList.remove('active');
+                if (state.revealObserver) {
+                    state.revealObserver.unobserve(el);
+                }
+            });
+        }
+    });
+
+    // Observe and trigger elements on the active page
+    const reveals = page.querySelectorAll('.reveal');
+    reveals.forEach(el => {
+        if (state.revealObserver) {
+            state.revealObserver.observe(el);
+        } else {
+            el.classList.add('active');
+        }
+    });
+
+    // Restart chart bar growth animation on mood page
+    if (pageName === 'mood') {
+        const bars = page.querySelectorAll('.chart-bar');
+        bars.forEach(bar => {
+            bar.style.animation = 'none';
+            bar.offsetHeight; // force reflow
+            bar.style.animation = '';
+        });
     }
 }
 
