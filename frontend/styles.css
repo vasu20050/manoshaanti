@@ -1019,6 +1019,7 @@ button {
     background: var(--bg-light);
     outline: none;
     -webkit-appearance: none;
+    appearance: none;
 }
 
 .stress-slider::-webkit-slider-thumb {
