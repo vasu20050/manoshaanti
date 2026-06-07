@@ -6,7 +6,7 @@
 const state = {
     currentPage: 'landing',
     sidebarOpen: true,
-    darkMode: localStorage.getItem('darkMode') === 'true',
+    darkMode: localStorage.getItem('darkMode') !== 'false',
     conversations: [],
     moodData: [],
     currentAssessment: null,
