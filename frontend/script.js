@@ -193,11 +193,44 @@ function setupAnimations() {
         // Store observer on state
         state.revealObserver = revealObserver;
     }
+
+    // Setup scroll reveal for all pages
+    setupScrollReveal();
+
+    // Add ripple effect to all buttons
+    document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('click', addRippleEffect);
+    });
+
+    // Setup glow animations for inputs
+    document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+        setupGlowAnimation(input);
+    });
 }
 
 function triggerPageReveals(pageName) {
     const page = document.getElementById(pageName);
     if (!page) return;
+
+    // Get all reveal elements on this page
+    const reveals = page.querySelectorAll('.reveal');
+    
+    // Setup scroll reveal for elements on this page
+    setupScrollReveal();
+
+    // Manually trigger reveals for visible elements
+    reveals.forEach((element, index) => {
+        setTimeout(() => {
+            element.classList.add('active');
+        }, index * 100);
+    });
+
+    // Animate page heading if exists
+    const pageHeader = page.querySelector('.page-header');
+    if (pageHeader) {
+        pageHeader.style.animation = 'pageSlideIn 0.5s ease-out';
+    }
+}
 
     // Reset reveal elements on other pages
     document.querySelectorAll('.page').forEach(p => {
@@ -270,15 +303,24 @@ function sendMessage(message = null) {
 
     const chatMessages = document.getElementById('chatMessages');
 
-    // Add user message
+    // Add user message with animation
     const userMessageDiv = document.createElement('div');
     userMessageDiv.className = 'message-group user-message';
+    userMessageDiv.style.opacity = '0';
+    userMessageDiv.style.transform = 'scale(0.95)';
     userMessageDiv.innerHTML = `
         <div class="message">
             <p>${escapeHtml(messageText)}</p>
         </div>
     `;
     chatMessages.appendChild(userMessageDiv);
+
+    // Animate message in
+    setTimeout(() => {
+        userMessageDiv.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+        userMessageDiv.style.opacity = '1';
+        userMessageDiv.style.transform = 'scale(1)';
+    }, 10);
 
     // Clear input
     input.value = '';
@@ -354,9 +396,11 @@ function addAiResponse(userMessage) {
     const responses = aiResponses[responseCategory];
     const response = responses[Math.floor(Math.random() * responses.length)];
 
-    // Add AI message
+    // Add AI message with animation
     const aiMessageDiv = document.createElement('div');
     aiMessageDiv.className = 'message-group';
+    aiMessageDiv.style.opacity = '0';
+    aiMessageDiv.style.transform = 'translateY(10px) scale(0.95)';
     aiMessageDiv.innerHTML = `
         <div class="message-avatar">
             <i class="fas fa-leaf"></i>
@@ -366,6 +410,14 @@ function addAiResponse(userMessage) {
         </div>
     `;
     chatMessages.appendChild(aiMessageDiv);
+
+    // Animate message in
+    setTimeout(() => {
+        aiMessageDiv.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+        aiMessageDiv.style.opacity = '1';
+        aiMessageDiv.style.transform = 'translateY(0) scale(1)';
+    }, 50);
+
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
