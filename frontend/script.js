@@ -392,8 +392,9 @@ function selectMood(mood, element) {
         btn.classList.remove('selected');
     });
 
-    // Add selection to clicked button
+    // Add selection to clicked button with animation
     element.classList.add('selected');
+    addPulseAnimation(element);
 
     // Store selection
     state.selectedMood = mood;
@@ -429,23 +430,32 @@ function saveMood() {
 
     state.moodData.push(moodEntry);
 
-    // Show success message
+    // Show success message with animation
     const button = event.target;
     const originalText = button.textContent;
-    button.textContent = '✓ Saved!';
-    setTimeout(() => {
-        button.textContent = originalText;
-    }, 2000);
+    showSuccessAnimation(button, '✓ Mood Saved!', 2000);
 
-    // Reset form
+    // Reset form with animation
     setTimeout(() => {
-        document.querySelectorAll('.mood-emoji').forEach(btn => {
-            btn.classList.remove('selected');
+        // Fade out form elements
+        const formElements = document.querySelectorAll('.mood-emoji, #moodNote, #stressSlider');
+        formElements.forEach(el => {
+            el.style.opacity = '0.5';
         });
-        document.getElementById('moodNote').value = '';
-        document.getElementById('stressSlider').value = 5;
-        document.getElementById('stressValue').textContent = '5';
-        state.selectedMood = null;
+
+        // Reset after fade
+        setTimeout(() => {
+            document.querySelectorAll('.mood-emoji').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.style.opacity = '1';
+            });
+            document.getElementById('moodNote').value = '';
+            document.getElementById('moodNote').style.opacity = '1';
+            document.getElementById('stressSlider').value = 5;
+            document.getElementById('stressSlider').style.opacity = '1';
+            document.getElementById('stressValue').textContent = '5';
+            state.selectedMood = null;
+        }, 300);
     }, 500);
 }
 
@@ -585,6 +595,213 @@ document.addEventListener('keydown', function(event) {
     // Navigate pages with arrow keys (optional enhancement)
     // Can be extended based on requirements
 });
+
+// ========== Enhanced Animation System ==========
+/**
+ * Animate element entrance with stagger effect
+ */
+function animateElementsIn(elements, delay = 0.1) {
+    elements.forEach((element, index) => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transitionDelay = `${delay * index}ms`;
+        
+        setTimeout(() => {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        }, 50);
+    });
+}
+
+/**
+ * Add button click ripple effect
+ */
+function addRippleEffect(event) {
+    const button = event.currentTarget;
+    const ripple = document.createElement('span');
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+    
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.classList.add('ripple');
+    button.appendChild(ripple);
+    
+    setTimeout(() => ripple.remove(), 600);
+}
+
+/**
+ * Animate counter numbers
+ */
+function animateCounter(element, target, duration = 1000) {
+    const start = parseInt(element.textContent) || 0;
+    const increment = (target - start) / (duration / 16);
+    let current = start;
+    
+    const counter = setInterval(() => {
+        current += increment;
+        if ((increment > 0 && current >= target) || (increment < 0 && current <= target)) {
+            element.textContent = target;
+            clearInterval(counter);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, 16);
+}
+
+/**
+ * Pulse animation trigger
+ */
+function addPulseAnimation(element) {
+    element.style.animation = 'none';
+    setTimeout(() => {
+        element.style.animation = 'successPulse 0.6s ease-out';
+    }, 10);
+}
+
+/**
+ * Shake animation (for errors)
+ */
+function shakeElement(element) {
+    element.style.animation = 'none';
+    setTimeout(() => {
+        element.style.animation = 'shake 0.5s ease-in-out';
+    }, 10);
+    
+    setTimeout(() => {
+        element.style.animation = 'none';
+    }, 500);
+}
+
+/**
+ * Fade and slide animation
+ */
+function fadeAndSlide(element, direction = 'up', duration = 0.4) {
+    const translateValue = direction === 'up' ? '-20px' : '20px';
+    element.style.opacity = '0';
+    element.style.transform = `translateY(${translateValue})`;
+    
+    setTimeout(() => {
+        element.style.transition = `all ${duration}s ease-out`;
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+    }, 10);
+}
+
+/**
+ * Scale animation on hover
+ */
+function setupScaleAnimation(element) {
+    element.addEventListener('mouseenter', () => {
+        element.style.transform = 'scale(1.05)';
+    });
+    element.addEventListener('mouseleave', () => {
+        element.style.transform = 'scale(1)';
+    });
+}
+
+/**
+ * Setup glow animation on focus
+ */
+function setupGlowAnimation(inputElement) {
+    inputElement.addEventListener('focus', () => {
+        inputElement.style.boxShadow = `0 0 15px rgba(52, 211, 153, 0.5)`;
+    });
+    inputElement.addEventListener('blur', () => {
+        inputElement.style.boxShadow = 'none';
+    });
+}
+
+/**
+ * Animate progress bar
+ */
+function updateProgressBar(percentage) {
+    const progressFill = document.getElementById('progressFill');
+    if (progressFill) {
+        progressFill.style.setProperty('--progress-value', percentage + '%');
+        progressFill.style.width = percentage + '%';
+    }
+}
+
+/**
+ * Stagger animation for list items
+ */
+function staggerListItems(listItems) {
+    listItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-10px)';
+        
+        setTimeout(() => {
+            item.style.transition = 'all 0.4s ease-out';
+            item.style.opacity = '1';
+            item.style.transform = 'translateX(0)';
+        }, index * 100);
+    });
+}
+
+/**
+ * Scroll reveal animation trigger
+ */
+function setupScrollReveal() {
+    if (!('IntersectionObserver' in window)) return;
+    
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    revealElements.forEach(element => observer.observe(element));
+}
+
+/**
+ * Add success animation and feedback
+ */
+function showSuccessAnimation(element, message = '✓ Success!', duration = 2000) {
+    const originalContent = element.innerHTML;
+    
+    element.innerHTML = message;
+    element.style.opacity = '1';
+    addPulseAnimation(element);
+    
+    setTimeout(() => {
+        element.style.opacity = '0.7';
+        element.style.transition = 'opacity 0.3s ease-out';
+    }, duration - 300);
+    
+    setTimeout(() => {
+        element.innerHTML = originalContent;
+        element.style.opacity = '1';
+    }, duration);
+}
+
+/**
+ * Typewriter effect for text
+ */
+function typewriterEffect(element, text, speed = 50) {
+    let index = 0;
+    element.textContent = '';
+    
+    const type = () => {
+        if (index < text.length) {
+            element.textContent += text.charAt(index);
+            index++;
+            setTimeout(type, speed);
+        }
+    };
+    
+    type();
+}
 
 // ========== Service Worker Registration (for PWA) ==========
 if ('serviceWorker' in navigator) {
