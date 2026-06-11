@@ -230,7 +230,6 @@ function triggerPageReveals(pageName) {
     if (pageHeader) {
         pageHeader.style.animation = 'pageSlideIn 0.5s ease-out';
     }
-}
 
     // Reset reveal elements on other pages
     document.querySelectorAll('.page').forEach(p => {
@@ -245,8 +244,8 @@ function triggerPageReveals(pageName) {
     });
 
     // Observe and trigger elements on the active page
-    const reveals = page.querySelectorAll('.reveal');
-    reveals.forEach(el => {
+    const pageReveals = page.querySelectorAll('.reveal');
+    pageReveals.forEach(el => {
         if (state.revealObserver) {
             state.revealObserver.observe(el);
         } else {
