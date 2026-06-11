@@ -772,7 +772,6 @@ function setupGlowAnimation(inputElement) {
 function updateProgressBar(percentage) {
     const progressFill = document.getElementById('progressFill');
     if (progressFill) {
-        progressFill.style.setProperty('--progress-value', percentage + '%');
         progressFill.style.width = percentage + '%';
     }
 }
