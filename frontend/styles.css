@@ -2899,20 +2899,21 @@ input[type="email"]:focus {
 /* Progress Bar Animation */
 @keyframes progressFill {
     from {
-        width: 0%;
+        opacity: 0;
     }
     to {
-        width: var(--progress-value);
+        opacity: 1;
     }
 }
 
 .progress-fill {
-    animation: progressFill 0.8s ease-out;
+    transition: width 0.8s ease-out;
     background: linear-gradient(90deg, 
         rgba(52, 211, 153, 0.8) 0%,
         rgba(52, 211, 153, 1) 50%,
         rgba(79, 142, 247, 1) 100%);
     box-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+    width: 0%;
 }
 
 /* Smooth Sidebar Slide */
