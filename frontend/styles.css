@@ -2637,6 +2637,532 @@ body.dark-mode .testimonial-card:hover {
     transform: translateY(-4px);
 }
 
+/* ==========================================
+   ENHANCED ANIMATIONS & EFFECTS
+   ========================================== */
+
+/* Page Transitions */
+@keyframes pageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pageSlideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+
+.page {
+    animation: pageSlideIn 0.4s ease-out;
+}
+
+/* Button Ripple Effect */
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all var(--transition-base);
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1);
+    transform-origin: center;
+    pointer-events: none;
+}
+
+.btn:active::after {
+    animation: ripple 0.6s ease-out;
+}
+
+/* Enhanced Button Hover - Glow Effect */
+@keyframes glow-pulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(52, 211, 153, 0.4), 
+                    0 0 30px rgba(52, 211, 153, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(52, 211, 153, 0.6), 
+                    0 0 45px rgba(52, 211, 153, 0.3);
+    }
+}
+
+.btn-primary:active {
+    animation: glow-pulse 0.6s ease-out;
+}
+
+/* Form Input Animations */
+@keyframes inputFocus {
+    from {
+        box-shadow: inset 0 0 0 2px transparent;
+    }
+    to {
+        box-shadow: inset 0 0 0 2px var(--primary);
+    }
+}
+
+.message-input:focus,
+textarea:focus,
+input[type="text"]:focus,
+input[type="email"]:focus {
+    animation: inputFocus 0.3s ease-out forwards;
+}
+
+/* Card Hover Lift Effect */
+@keyframes cardLift {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes cardLiftShadow {
+    0% {
+        box-shadow: var(--shadow-md);
+    }
+    100% {
+        box-shadow: var(--shadow-xl);
+    }
+}
+
+.feature-card:hover,
+.resource-card:hover,
+.testimonial-card:hover,
+.assessment-card:hover,
+.professional-card:hover {
+    animation: cardLift 0.4s ease-out forwards;
+}
+
+/* Mood Selector Animations */
+@keyframes moodPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+@keyframes moodGlow {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(52, 211, 153, 0);
+    }
+}
+
+.mood-emoji {
+    transition: all var(--transition-base);
+}
+
+.mood-emoji:hover {
+    animation: moodPulse 0.6s ease-in-out;
+}
+
+.mood-emoji.selected {
+    animation: moodGlow 1.5s ease-in-out;
+}
+
+/* Staggered List Animation */
+@keyframes listSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.suggestion-btn {
+    animation: listSlide 0.5s ease-out;
+}
+
+.suggestion-btn:nth-child(1) { animation-delay: 0.1s; }
+.suggestion-btn:nth-child(2) { animation-delay: 0.2s; }
+.suggestion-btn:nth-child(3) { animation-delay: 0.3s; }
+.suggestion-btn:nth-child(4) { animation-delay: 0.4s; }
+
+/* Icon Rotation Animation */
+@keyframes iconRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes iconBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+.navbar-brand i,
+.btn-icon {
+    transition: all var(--transition-base);
+}
+
+.btn-icon:active i {
+    animation: iconRotate 0.6s ease-out;
+}
+
+.navbar-brand:hover i {
+    animation: iconBounce 0.6s ease-in-out;
+}
+
+/* Glowing Text Pulse */
+@keyframes textGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(52, 211, 153, 0.6);
+    }
+}
+
+.hero-script-neon {
+    animation: textGlow 2s ease-in-out infinite;
+}
+
+/* Modal Animations */
+@keyframes modalPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.85) translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+    }
+}
+
+.modal {
+    animation: modalFade 0.3s ease-out;
+}
+
+.modal-content {
+    animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Progress Bar Animation */
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+    to {
+        width: var(--progress-value);
+    }
+}
+
+.progress-fill {
+    animation: progressFill 0.8s ease-out;
+    background: linear-gradient(90deg, 
+        rgba(52, 211, 153, 0.8) 0%,
+        rgba(52, 211, 153, 1) 50%,
+        rgba(79, 142, 247, 1) 100%);
+    box-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+}
+
+/* Smooth Sidebar Slide */
+@keyframes sidebarSlideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes sidebarSlideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.chat-sidebar {
+    transition: all var(--transition-base);
+}
+
+/* Navbar Dropdown Animation */
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+        visibility: hidden;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+    }
+}
+
+/* Stress Slider Animation */
+@keyframes sliderThumbGlow {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(52, 211, 153, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(52, 211, 153, 0.8);
+    }
+}
+
+.stress-slider::-webkit-slider-thumb {
+    animation: sliderThumbGlow 2s ease-in-out infinite;
+}
+
+/* Gradient Shift Animation */
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.feature-card {
+    background-size: 200% 200%;
+    transition: all var(--transition-base);
+}
+
+.feature-card:hover {
+    animation: gradientShift 3s ease-in-out;
+}
+
+/* Skeleton Loading Animation */
+@keyframes skeleton {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Scale on Scroll */
+@keyframes scaleIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.resource-card {
+    animation: scaleIn 0.6s ease-out forwards;
+}
+
+/* Navigation Menu Items Stagger */
+.navbar-menu li {
+    transition: all var(--transition-base);
+}
+
+.navbar-menu li:hover {
+    transform: translateY(-3px);
+}
+
+/* Stats Counter Animation */
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-stat {
+    animation: countUp 0.6s ease-out;
+}
+
+.hero-stat:nth-child(1) { animation-delay: 0.1s; }
+.hero-stat:nth-child(3) { animation-delay: 0.2s; }
+.hero-stat:nth-child(5) { animation-delay: 0.3s; }
+
+/* Assessment Card Hover */
+@keyframes assessmentHover {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-8px) rotate(0.5deg);
+    }
+}
+
+.assessment-card {
+    transition: all var(--transition-base);
+}
+
+.assessment-card:hover {
+    animation: assessmentHover 0.5s ease-out forwards;
+}
+
+/* Question Container Animation */
+@keyframes questionFade {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#questionContainer {
+    animation: questionFade 0.4s ease-out;
+}
+
+/* Success/Confirmation Animation */
+@keyframes successPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.95;
+    }
+}
+
+/* Smooth Link Underline */
+@keyframes underlineGrow {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+a {
+    position: relative;
+    text-decoration: none;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width var(--transition-fast);
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+/* Floating Label Animation */
+@keyframes labelFloat {
+    from {
+        transform: translateY(0);
+        opacity: 0.7;
+    }
+    to {
+        transform: translateY(-25px);
+        opacity: 1;
+    }
+}
+
+label {
+    transition: all var(--transition-base);
+}
+
+/* Toast/Notification Animation */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+/* Smooth Scroll Behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Page Load Fade In */
+body {
+    animation: fadeIn 0.5s ease-out;
+}
+
 /* Custom glowing scrollbar for dark mode */
 body.dark-mode::-webkit-scrollbar {
     width: 10px;
@@ -2648,6 +3174,7 @@ body.dark-mode::-webkit-scrollbar-thumb {
     background: rgba(52, 211, 153, 0.3);
     border-radius: 5px;
     border: 2px solid #030906;
+    animation: sliderThumbGlow 2s ease-in-out infinite;
 }
 body.dark-mode::-webkit-scrollbar-thumb:hover {
     background: rgba(52, 211, 153, 0.5);
