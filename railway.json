@@ -9,3 +9,4 @@
     "healthcheckPath": "/api/health",
     "healthcheckTimeout": 30
   }
+}
